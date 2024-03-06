@@ -20,20 +20,19 @@ public class DriverManager {
     }
 
     private static WebDriver createDriver(BrowserType browserType) {
-        WebDriverManager.chromedriver().setup();
-        WebDriverManager.firefoxdriver().setup();
-        WebDriverManager.edgedriver().setup(); // Agregar EdgeDriver setup
-
         switch (browserType) {
             case CHROME:
+                WebDriverManager.chromedriver().driverVersion("122.0").setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
                 return new ChromeDriver(chromeOptions);
             case FIREFOX:
+                WebDriverManager.firefoxdriver().driverVersion("LATEST").setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("-start-maximized");
                 return new FirefoxDriver(firefoxOptions);
             case EDGE:
+                WebDriverManager.edgedriver().driverVersion("LATEST").setup();
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("-start-maximized");
                 return new EdgeDriver(edgeOptions);
@@ -41,4 +40,5 @@ public class DriverManager {
                 throw new IllegalArgumentException("Navegador no compatible");
         }
     }
+
 }
